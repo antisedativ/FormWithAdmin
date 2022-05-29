@@ -1,0 +1,25 @@
+header {
+    margin: auto;
+    background-color: rgb(146, 196, 219);
+    height: 40px;
+    max-width:200px;
+}
+
+.head-text{
+    text-align: center;
+}
+
+.form{
+    text-align: center;
+
+    margin: auto;
+    margin-top:20px;
+    padding:10px;
+    max-width:200px;
+    width:100%;
+    background-color: rgb(146, 196, 219);
+}
+.footer{
+    text-align: center;
+   margin-top: 20px;
+}
