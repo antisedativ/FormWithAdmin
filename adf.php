@@ -4,13 +4,13 @@
     <p>
         <label>
             Имя:<br>
-            <input name="name" value="<?php print $values["name"]; ?>" />
+            <input name="name" value="<?php print $row["name"]; ?>" />
         </label><br>
     </p>
     <p>
         <label>
             e-mail:<br>
-            <input name="email" value="<?php print $values['email']; ?>" />
+            <input name="email" value="<?php print $row['email']; ?>" />
         </label><br>
     </p>
     <p>

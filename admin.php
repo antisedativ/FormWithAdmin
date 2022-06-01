@@ -1,13 +1,9 @@
 <head>
-
     <title>Практика номер 6</title>
 </head>
 
 <body>
     <?php
-function myFunction() {
-  echo 'Have a great day'.'<br>';
-}
 
 /**
  * Задача 6. Реализовать вход администратора с использованием
@@ -26,9 +22,9 @@ if (empty($_SERVER['PHP_AUTH_USER']) ||
   exit();
 }
 
-$user = 'u47508';
-$passMy = '1199006';
-$db = new PDO('mysql:host=localhost;dbname=u47508', $user, $passMy, array(PDO::ATTR_PERSISTENT => true));
+$user = 'u47436';
+$passMy = '2041646';
+$db = new PDO('mysql:host=localhost;dbname=u47436', $user, $passMy, array(PDO::ATTR_PERSISTENT => true));
 $log_admin = $_SERVER['PHP_AUTH_USER'];
 $pass_admin = $_SERVER['PHP_AUTH_PW'];
 
@@ -50,14 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $stmt->execute();
 
   // print('<section>');
-  while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    if($row['superpower']=='бессмертие'){
+  while($sch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    if($sch['superpower']=='бессмертие'){
       $bes+=1;
     }
-    if($row['superpower']=='прохождение сквозь стены'){
+    if($sch['superpower']=='прохождение сквозь стены'){
       $proh+=1;
     }
-    if($row['superpower']=='левитация'){
+    if($sch['superpower']=='левитация'){
       $lev+=1;
     }
   }
@@ -69,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $stmt1->execute();
 
   $stmt2 = $db->prepare('SELECT superpower FROM superpowers WHERE id = ?');
-
+ 
   while($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
         $stmt2->execute([$row['id']]);
 
@@ -93,17 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if(empty($roww['sup3'])){
       $roww['sup3'] = '';
     }
-    $values['name'] = $row['name'];
-    $values['email'] = $row['email'];
-    $values['bthD'] = $row['date'];
-    $values['sup1']= $roww['sup1'];
-    $values['sup2']= $roww['sup2'];
-    $values['sup3']= $roww['sup3'];
-    $values['gender'] = $row['gender'];
-    $values['limbs'] = $row['limbs'];
-    $values['biograf'] = $row['biograf'];
- 
-include('adf.php');
+
+  include('adf.php');
+  $roww=array(
+    'sup1'=>'',
+    'sup2'=>'',
+    'sup3'=>''
+  );
   }  
 }
 else{ 
@@ -116,31 +108,31 @@ else{
     $biograf = $_POST['biograf'];
     $superpowers = $_POST['superpowers'];
     $id=$_POST['id'];
-    $user = 'u47508';
-    $passMy = '1199006';
-    $db = new PDO('mysql:host=localhost;dbname=u47508', $user, $passMy, array(PDO::ATTR_PERSISTENT => true));
+    $user = 'u47436';
+    $passMy = '2041646';
+    $db = new PDO('mysql:host=localhost;dbname=u47436', $user, $passMy, array(PDO::ATTR_PERSISTENT => true));
     
     $stmt = $db->prepare('UPDATE form SET name=?, email=?, date=?, gender=?, limbs=?, biograf=? WHERE id = ?');
     $stmt->execute(array($name, $email, $bthD, $point1,$point2, $biograf,$id));
 
     $stmt2 = $db->prepare('DELETE FROM superpowers WHERE id = ?');
-    $stmt2->execute([$_POST['id']]);
+    $stmt2->execute(array($id));
 
-    $stmt3 = $db->prepare('INSERT INTO superpowers SET superpower=? id = ?');
+    $stmt3 = $db->prepare('INSERT INTO superpowers SET id = ?, superpower=?');
     foreach ($superpowers as $s)
-      $stmt3->execute(array($s,$id));
+      $stmt3->execute(array($id,$s));
 
     header('Location: admin.php');
     exit();
   }
   if(array_key_exists('delete', $_POST)){   
-    $user = 'u47508';
-    $passMy = '1199006';
-    $db = new PDO('mysql:host=localhost;dbname=u47508', $user, $passMy, array(PDO::ATTR_PERSISTENT => true));
-    $stmt1 = $db->prepare('DELETE FROM form WHERE id = ?');
-    $stmt1->execute([$_POST['id']]);
-    $stmt2 = $db->prepare('DELETE FROM superpowers WHERE id = ?');
-    $stmt2->execute([$_POST['id']]);
+    $user = 'u47436';
+    $passMy = '2041646';
+    $db = new PDO('mysql:host=localhost;dbname=u47436', $user, $passMy, array(PDO::ATTR_PERSISTENT => true));
+    $stmt4 = $db->prepare('DELETE FROM form WHERE id = ?');
+    $stmt4->execute([$_POST['id']]);
+    $stmt5 = $db->prepare('DELETE FROM superpowers WHERE id = ?');
+    $stmt5->execute([$_POST['id']]);
     header('Location: admin.php');
     exit();
   }
